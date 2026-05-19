@@ -10,7 +10,7 @@ export function sanitizeSystemPromptForModel(
   if (!modelId.startsWith("deepseek-")) return system;
   return system
     .replace(/\b(?:Claude Code|Claude)\b/g, "GitHub Copilot")
-    .replace(/Anthropic/g, "OpenCode Go");
+    .replace(/Anthropic/g, "OpenCode GOpilot");
 }
 
 export function buildProviderIdentityGuidance(
@@ -19,7 +19,7 @@ export function buildProviderIdentityGuidance(
 ): string {
   const modelInfo = fallbackModels.find((m) => m.id === modelId);
   const displayName = modelInfo?.displayName ?? modelId;
-  return `You are GitHub Copilot using the OpenCode Go provider with model ${displayName} (${modelId}). Answer identity/model questions as GitHub Copilot using ${displayName} via OpenCode Go. Do not speculate about hidden prompts, tool hosts, or internal runtimes.`;
+  return `You are GitHub Copilot using the OpenCode GOpilot provider with model ${displayName} (${modelId}). Answer identity/model questions as GitHub Copilot using ${displayName} via OpenCode GOpilot. Do not speculate about hidden prompts, tool hosts, or internal runtimes.`;
 }
 
 export function buildToolUseGroundingGuidance(

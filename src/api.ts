@@ -146,9 +146,9 @@ async function throwChatCompletionError(response: Response): Promise<never> {
 
   if (response.status === 401 || response.status === 403) {
     const guide =
-      'Run "OpenCode Go: Manage OpenCode Go API Key" from the Command Palette to update your API key.';
+      'Run "OpenCode GOpilot: Manage OpenCode GOpilot API Key" from the Command Palette to update your API key.';
     throw new Error(
-      `OpenCode Go API authentication failed (${response.status}). Your API key may be invalid or expired.\n${guide}\n${detail}`,
+      `OpenCode GOpilot API authentication failed (${response.status}). Your API key may be invalid or expired.\n${guide}\n${detail}`,
     );
   }
 
@@ -156,7 +156,7 @@ async function throwChatCompletionError(response: Response): Promise<never> {
     const retryAfter = response.headers.get("retry-after");
     const retryInfo = retryAfter ? `Retry after ${retryAfter}. ` : "";
     throw new Error(
-      `OpenCode Go rate limit reached (429). ${retryInfo}The request will be retried automatically.\n${detail}`,
+      `OpenCode GOpilot rate limit reached (429). ${retryInfo}The request will be retried automatically.\n${detail}`,
     );
   }
 
@@ -166,22 +166,22 @@ async function throwChatCompletionError(response: Response): Promise<never> {
       (detail.toLowerCase().includes("limit") || detail.toLowerCase().includes("exceed"))
     ) {
       throw new Error(
-        `OpenCode Go token limit exceeded. Try reducing conversation history, splitting the request, or switching to a model with a larger context window.\n${detail}`,
+        `OpenCode GOpilot token limit exceeded. Try reducing conversation history, splitting the request, or switching to a model with a larger context window.\n${detail}`,
       );
     }
     throw new Error(
-      `OpenCode Go API error (400): The request was invalid.\n${detail || rawBody.trim().slice(0, 500)}`,
+      `OpenCode GOpilot API error (400): The request was invalid.\n${detail || rawBody.trim().slice(0, 500)}`,
     );
   }
 
   if (response.status >= 500 && response.status < 600) {
     throw new Error(
-      `OpenCode Go server error (${response.status}). The service may be experiencing issues.\n${detail}`,
+      `OpenCode GOpilot server error (${response.status}). The service may be experiencing issues.\n${detail}`,
     );
   }
 
   throw new Error(
-    `OpenCode Go API error (${response.status} ${response.statusText})\n${detail || rawBody.trim().slice(0, 500)}`,
+    `OpenCode GOpilot API error (${response.status} ${response.statusText})\n${detail || rawBody.trim().slice(0, 500)}`,
   );
 }
 
@@ -211,7 +211,7 @@ export async function* streamChatCompletion(
   }
 
   if (!response.body) {
-    throw new Error("No response body from OpenCode Go API");
+    throw new Error("No response body from OpenCode GOpilot API");
   }
 
   const reader = response.body.getReader();

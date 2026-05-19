@@ -179,9 +179,9 @@ export async function handleAnthropicRequest(params: AnthropicRequestParams): Pr
 
       if (response.status === 401 || response.status === 403) {
         const guide =
-          'Run "OpenCode Go: Manage OpenCode Go API Key" from the Command Palette to update your API key.';
+          'Run "OpenCode GOpilot: Manage OpenCode GOpilot API Key" from the Command Palette to update your API key.';
         throw new Error(
-          `OpenCode Go API authentication failed (${response.status}). Your API key may be invalid or expired.\n${guide}\n${detail}`,
+          `OpenCode GOpilot API authentication failed (${response.status}). Your API key may be invalid or expired.\n${guide}\n${detail}`,
         );
       }
 
@@ -189,12 +189,12 @@ export async function handleAnthropicRequest(params: AnthropicRequestParams): Pr
         const retryAfter = response.headers.get("retry-after");
         const retryInfo = retryAfter ? `Retry after ${retryAfter}. ` : "";
         throw new Error(
-          `OpenCode Go rate limit reached (429). ${retryInfo}The request will be retried automatically.\n${detail}`,
+          `OpenCode GOpilot rate limit reached (429). ${retryInfo}The request will be retried automatically.\n${detail}`,
         );
       }
 
       throw new Error(
-        `OpenCode Go Anthropic API error (${response.status} ${response.statusText})\n${detail || rawBody.trim().slice(0, 500)}`,
+        `OpenCode GOpilot Anthropic API error (${response.status} ${response.statusText})\n${detail || rawBody.trim().slice(0, 500)}`,
       );
     }
 

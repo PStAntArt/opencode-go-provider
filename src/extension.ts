@@ -33,28 +33,30 @@ export function activate(context: vscode.ExtensionContext) {
 
   const registration = vscode.lm.registerLanguageModelChatProvider("opencode-go", provider);
   context.subscriptions.push(registration);
+  // Force VS Code to refresh the model picker after registration
+  provider.fireModelInfoChanged();
   context.subscriptions.push(
     vscode.commands.registerCommand("opencode-go.manage", async () => {
       const existing = await context.secrets.get("opencode-go.apiKey");
       const apiKey = await vscode.window.showInputBox({
-        title: "OpenCode Go API Key",
-        prompt: existing ? "Update your OpenCode Go API key" : "Enter your OpenCode Go API key",
+        title: "OpenCode GOpilot API Key",
+        prompt: existing ? "Update your OpenCode GOpilot API key" : "Enter your OpenCode GOpilot API key",
         ignoreFocusOut: true,
         password: true,
         value: existing ?? "",
-        placeHolder: "Enter your OpenCode Go API key...",
+        placeHolder: "Enter your OpenCode GOpilot API key...",
       });
       if (apiKey === undefined) {
         return;
       }
       if (!apiKey.trim()) {
         await context.secrets.delete("opencode-go.apiKey");
-        vscode.window.showInformationMessage("OpenCode Go API key cleared.");
+        vscode.window.showInformationMessage("OpenCode GOpilot API key cleared.");
         _provider?.fireModelInfoChanged();
         return;
       }
       await context.secrets.store("opencode-go.apiKey", apiKey.trim());
-      vscode.window.showInformationMessage("OpenCode Go API key saved.");
+      vscode.window.showInformationMessage("OpenCode GOpilot API key saved.");
       _provider?.fireModelInfoChanged();
     }),
   );
@@ -67,7 +69,7 @@ export function activate(context: vscode.ExtensionContext) {
       process.env.OPENCODE_GO_DEBUG = next ? "1" : "0";
       debugLog("toggleDebug", `Debug logging ${next ? "enabled" : "disabled"}.`);
       vscode.window.showInformationMessage(
-        `OpenCode Go debug logging ${next ? "enabled" : "disabled"}.`,
+        `OpenCode GOpilot debug logging ${next ? "enabled" : "disabled"}.`,
       );
     }),
   );
@@ -84,7 +86,7 @@ export function activate(context: vscode.ExtensionContext) {
   } catch (error) {
     debugLog("registerOcGoTools", error);
     vscode.window.showWarningMessage(
-      "OpenCode Go image analysis tool could not be registered. API key management and chat remain available.",
+      "OpenCode GOpilot image analysis tool could not be registered. API key management and chat remain available.",
     );
   }
 }

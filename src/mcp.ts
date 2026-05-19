@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { requestChatCompletion } from "./api";
 
 /**
- * OpenCode Go MCP Client for making HTTP-based MCP tool calls.
+ * OpenCode GOpilot MCP Client for making HTTP-based MCP tool calls.
  * Used internally to provide image analysis capabilities for non-vision models.
  */
 export class OcGoMcpClient {
@@ -21,7 +21,7 @@ export class OcGoMcpClient {
   }
 
   /**
-   * Analyze an image using OpenCode Go Vision model (MiMo-V2-Omni).
+   * Analyze an image using OpenCode GOpilot Vision model (MiMo-V2-Omni).
    * Used to add image processing capabilities for non-vision models.
    *
    * @param imageData Base64-encoded image in data URL format (e.g. "data:image/png;base64,...")
@@ -36,7 +36,7 @@ export class OcGoMcpClient {
   ): Promise<string> {
     const apiKey = await this.getApiKey(apiKeyOverride);
     if (!apiKey) {
-      throw new Error("OpenCode Go API key not found");
+      throw new Error("OpenCode GOpilot API key not found");
     }
 
     const data = await requestChatCompletion(

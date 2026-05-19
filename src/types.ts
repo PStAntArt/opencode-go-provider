@@ -333,7 +333,7 @@ export const FALLBACK_MODELS: OcGoModelInfo[] = [
 
 // ============================================================================
 // Anthropic Messages API types
-// Used by MiniMax M2.5 and M2.7 via OpenCode Go proxy
+// Used by MiniMax M2.5 and M2.7 via OpenCode GOpilot proxy
 // ============================================================================
 
 /** Anthropic message content block */

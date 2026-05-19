@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { OcGoMcpClient } from "./mcp";
 
 /**
- * Tool for analyzing images using the OpenCode Go Vision model (MiMo-V2-Omni).
+ * Tool for analyzing images using the OpenCode GOpilot Vision model (MiMo-V2-Omni).
  * Non-vision models can delegate image content to this tool for analysis.
  */
 export class OcGoAnalyzeImageTool implements vscode.LanguageModelTool<{
@@ -13,7 +13,7 @@ export class OcGoAnalyzeImageTool implements vscode.LanguageModelTool<{
 
   readonly name = OcGoAnalyzeImageTool.id;
   readonly description =
-    "Analyze an image using OpenCode Go Vision model. Use this tool when you need to " +
+    "Analyze an image using OpenCode GOpilot Vision model. Use this tool when you need to " +
     "understand or describe the content of an image, extract text from images (OCR), " +
     "or answer questions about visual content. Returns a detailed analysis of the image.";
   readonly tags = ["vision", "image", "ocr", "analysis"];
@@ -71,12 +71,12 @@ export class OcGoAnalyzeImageTool implements vscode.LanguageModelTool<{
     }>,
     _token: vscode.CancellationToken,
   ): vscode.ProviderResult<vscode.PreparedToolInvocation> {
-    return { invocationMessage: "Analyzing image with OpenCode Go Vision..." };
+    return { invocationMessage: "Analyzing image with OpenCode GOpilot Vision..." };
   }
 }
 
 /**
- * Register all OpenCode Go tools with the Language Model API.
+ * Register all OpenCode GOpilot tools with the Language Model API.
  * @param secrets VS Code secret storage for API key access
  * @returns Disposable for the tool registrations
  */

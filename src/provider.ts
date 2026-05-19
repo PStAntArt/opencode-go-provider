@@ -213,6 +213,20 @@ export class OcGoChatModelProvider implements LanguageModelChatProvider {
   ): Promise<LanguageModelChatInformation[]> {
     if (token.isCancellationRequested) return [];
     await this.syncConfiguredApiKey(options);
+
+    // VS Code 1.120+ calls provideLanguageModelChatInformation twice:
+    // once without a group/configuration context, and once with it.
+    // Returning models only in the group/configuration context avoids duplicates
+    // in the model picker and Language Models view.
+    const optionsRecord = options && typeof options === "object" ? (options as unknown as Record<string, unknown>) : {};
+    const hasConfigurationContext =
+      "configuration" in optionsRecord ||
+      "modelConfiguration" in optionsRecord ||
+      "group" in optionsRecord;
+    if (!hasConfigurationContext) {
+      return [];
+    }
+
     return this._mapToChatInformation(FALLBACK_MODELS);
   }
 
@@ -230,7 +244,7 @@ export class OcGoChatModelProvider implements LanguageModelChatProvider {
         supportsVision: false,
       };
 
-      const tooltipParts: string[] = [`OpenCode Go — ${info.name}`];
+      const tooltipParts: string[] = [`OpenCode GOpilot — ${info.name}`];
       if (info.reasoningEffort) {
         tooltipParts.push(`Reasoning: ${info.reasoningEffort}`);
       }
@@ -249,15 +263,18 @@ export class OcGoChatModelProvider implements LanguageModelChatProvider {
       return {
         id: info.id,
         name: info.displayName,
-        detail: "OpenCode Go",
+        detail: "OpenCode GOpilot",
         tooltip: tooltipParts.join(" · "),
-        family: "opencode-go",
+        family: info.id,
         version: "1.0.0",
         maxInputTokens: Math.max(
           1,
           info.contextWindow - Math.min(info.maxOutput, DEFAULT_MAX_OUTPUT_TOKENS),
         ),
         maxOutputTokens: info.maxOutput,
+        isUserSelectable: true,
+        multiplierNumeric: 0,
+        pricing: "OpenCode GOpilot",
         capabilities: {
           toolCalling: info.supportsTools ? 128 : false,
           imageInput: info.supportsVision,
@@ -284,7 +301,7 @@ export class OcGoChatModelProvider implements LanguageModelChatProvider {
       if (!apiKey) {
         progress.report(
           new vscode.LanguageModelTextPart(
-            'OpenCode Go API key is not configured. Add or configure OpenCode Go from the chat model picker, run "OpenCode Go: Manage OpenCode Go API Key" from the Command Palette, or retry this request and enter the key when prompted.',
+            'OpenCode GOpilot API key is not configured. Add or configure OpenCode GOpilot from the chat model picker, run "OpenCode GOpilot: Manage OpenCode GOpilot API Key" from the Command Palette, or retry this request and enter the key when prompted.',
           ),
         );
         return;
@@ -455,8 +472,8 @@ export class OcGoChatModelProvider implements LanguageModelChatProvider {
     let apiKey = (await this.secrets.get("opencode-go.apiKey"))?.trim();
     if (!apiKey && !silent) {
       const entered = await vscode.window.showInputBox({
-        title: "OpenCode Go API Key",
-        prompt: "Enter your OpenCode Go API key",
+        title: "OpenCode GOpilot API Key",
+        prompt: "Enter your OpenCode GOpilot API key",
         ignoreFocusOut: true,
         password: true,
       });

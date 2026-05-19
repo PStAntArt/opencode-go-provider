@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-const OUTPUT_CHANNEL_NAME = "OpenCode Go";
+const OUTPUT_CHANNEL_NAME = "OpenCode GOpilot";
 
 function getGlobalOutputChannel(): vscode.OutputChannel | undefined {
   const globalWindow = globalThis as typeof globalThis & {
@@ -36,8 +36,8 @@ export function debugLog(label: string, value: unknown): void {
   const message = typeof value === "string" ? value : JSON.stringify(value, null, 2);
   const channel = getGlobalOutputChannel();
   if (channel) {
-    channel.appendLine(`[OpenCode Go Debug] ${label}: ${message}`);
+    channel.appendLine(`[OpenCode GOpilot Debug] ${label}: ${message}`);
     return;
   }
-  console.log(`[OpenCode Go Debug] ${label}:`, value);
+  console.log(`[OpenCode GOpilot Debug] ${label}:`, value);
 }
