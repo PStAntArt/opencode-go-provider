@@ -70,8 +70,9 @@ La liste est hardcodée dans l'extension (oui, on sait, c'est pas idéal, mais c
 | **DeepSeek V4 Pro / Flash** | Raisonnement poussé, mais ne dit pas toujours son vrai nom |
 | **Kimi K2.5 / K2.6** | Notre préféré. Long contexte, rapide, et il sait faire les blagues |
 | **MiMo-V2-Pro / Omni / V2.5** | Le nouveau venu qui monte |
-| **MiniMax M2.5 / M2.7** | Polyvalent, efficace |
+| **MiniMax M2.5 / M2.7 / M3** | Polyvalent, efficace, M3 le nouveau venu |
 | **Qwen3.5 Plus / 3.6 Plus** | L'expert Alibaba qui en sait trop |
+| **Qwen3.7 Max** | Le nouveau boss d'Alibaba, contexte 1M tokens |
 
 ---
 

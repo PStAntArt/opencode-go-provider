@@ -23,9 +23,9 @@ export interface OpenAIModelInfo {
 }
 
 function normalizeReasoningEffort(reasoningEffort: string | undefined): string | undefined {
-  if (reasoningEffort === "max") {
-    return "xhigh";
-  }
+  // Kimi K3 supports "max" natively (low/high/max). Other providers (e.g.
+  // DeepSeek) use the "xhigh" alias; preserve "max" as-is so Kimi K3 doesn't
+  // receive an unsupported value.
   return reasoningEffort;
 }
 
