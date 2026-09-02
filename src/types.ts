@@ -79,8 +79,8 @@ export interface OcGoChatCompletionResponse {
 /** API format used by a model */
 export type OcGoApiFormat = "openai" | "anthropic";
 
-/** Reasoning effort level for models that support it (e.g. DeepSeek) */
-export type ReasoningEffort = "xhigh" | "high" | "medium" | "low" | "minimal" | "none";
+/** Reasoning effort level for models that support it (e.g. DeepSeek, Kimi K3) */
+export type ReasoningEffort = "max" | "xhigh" | "high" | "medium" | "low" | "minimal" | "none";
 
 export interface OcGoModelInfo {
   id: string;
@@ -100,6 +100,16 @@ export interface OcGoModelInfo {
 
 export const FALLBACK_MODELS: OcGoModelInfo[] = [
   {
+    id: "grok-4.5",
+    name: "Grok 4.5",
+    displayName: "Grok 4.5",
+    contextWindow: 500000,
+    maxOutput: 500000,
+    supportsTools: true,
+    supportsVision: true,
+    apiFormat: "openai",
+  },
+  {
     id: "glm-5",
     name: "GLM-5",
     displayName: "GLM-5",
@@ -114,6 +124,16 @@ export const FALLBACK_MODELS: OcGoModelInfo[] = [
     name: "GLM-5.1",
     displayName: "GLM-5.1",
     contextWindow: 202752,
+    maxOutput: 131072,
+    supportsTools: true,
+    supportsVision: false,
+    apiFormat: "openai",
+  },
+  {
+    id: "glm-5.2",
+    name: "GLM-5.2",
+    displayName: "GLM-5.2",
+    contextWindow: 1000000,
     maxOutput: 131072,
     supportsTools: true,
     supportsVision: false,
@@ -140,6 +160,29 @@ export const FALLBACK_MODELS: OcGoModelInfo[] = [
     supportsVision: true,
     apiFormat: "openai",
     fixedTemperature: 1,
+  },
+  {
+    id: "kimi-k2.7-code",
+    name: "Kimi K2.7 Code",
+    displayName: "Kimi K2.7 Code",
+    contextWindow: 262144,
+    maxOutput: 262144,
+    supportsTools: true,
+    supportsVision: true,
+    apiFormat: "openai",
+    fixedTemperature: 1,
+  },
+  {
+    id: "kimi-k3",
+    name: "Kimi K3",
+    displayName: "Kimi K3",
+    contextWindow: 1048576,
+    maxOutput: 1048576,
+    supportsTools: true,
+    supportsVision: true,
+    apiFormat: "openai",
+    fixedTemperature: 1,
+    reasoningEffort: "max",
   },
   {
     id: "mimo-v2-pro",
@@ -202,6 +245,16 @@ export const FALLBACK_MODELS: OcGoModelInfo[] = [
     apiFormat: "anthropic",
   },
   {
+    id: "minimax-m3",
+    name: "MiniMax M3",
+    displayName: "MiniMax M3",
+    contextWindow: 1000000,
+    maxOutput: 512000,
+    supportsTools: true,
+    supportsVision: false,
+    apiFormat: "anthropic",
+  },
+  {
     id: "qwen3.5-plus",
     name: "Qwen3.5 Plus",
     displayName: "Qwen3.5 Plus",
@@ -220,6 +273,26 @@ export const FALLBACK_MODELS: OcGoModelInfo[] = [
     supportsTools: true,
     supportsVision: true,
     apiFormat: "openai",
+  },
+  {
+    id: "qwen3.7-max",
+    name: "Qwen3.7 Max",
+    displayName: "Qwen3.7 Max",
+    contextWindow: 1000000,
+    maxOutput: 65536,
+    supportsTools: true,
+    supportsVision: true,
+    apiFormat: "anthropic",
+  },
+  {
+    id: "qwen3.7-plus",
+    name: "Qwen3.7 Plus",
+    displayName: "Qwen3.7 Plus",
+    contextWindow: 1000000,
+    maxOutput: 65536,
+    supportsTools: true,
+    supportsVision: true,
+    apiFormat: "anthropic",
   },
   {
     id: "deepseek-v4-pro",
